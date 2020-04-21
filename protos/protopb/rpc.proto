@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package protos;
+option go_package="protopb";
+
+message Greeting {
+    string first_name=1;
+    string last_name=2;
+}
+
+// client server unary requests and responses
+message GreetRequest {
+    Greeting greeting = 1;
+}
+
+message GreetResponse {
+    string result = 1;
+}
+
+// client unary  server stream request and responses
+message GreetManyTimesRequest {
+    Greeting greeting = 1;
+}
+
+message GreetManyTimesResponse {
+    string result = 1;
+}
+
+// client stream and server unary request responses
+message LongGreetRequest {
+    Greeting greeting = 1;
+}
+
+message LongGreetResponse {
+    string result = 1;
+}
+
+// Bi directional streaming
+message GreetEveryoneRequest {
+    Greeting greeting = 1;
+}
+
+message GreetEveryoneResponse {
+    string result = 1;
+}
+
+service GreetService {
+  // server and client unary
+  rpc Greet(GreetRequest) returns (GreetResponse) {};
+
+  // client unary server stream
+  rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse) {};
+
+  // client stream, server unary
+  rpc LGreet(stream LongGreetRequest) returns (LongGreetResponse) {};
+
+  // Bi directional streaming
+  rpc GreetEveryone (stream GreetEveryoneRequest) returns (stream GreetEveryoneResponse) {};
+}

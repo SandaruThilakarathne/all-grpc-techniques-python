@@ -1,0 +1,1 @@
+python -m grpc_tools.protoc -I ./protos/protopb --python_out=./protos/protopb --grpc_python_out=./protos/protopb ./protos/protopb/*.proto
